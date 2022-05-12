@@ -50,7 +50,7 @@ ALL_A= $(LUA_A)
 # Targets start here.
 default: $(PLAT)
 
-all:	$(ALL_T)
+all:	$(ALL_T) luacore.h
 
 o:	$(ALL_O)
 
@@ -70,7 +70,7 @@ test:
 	./lua -v
 
 clean:
-	$(RM) $(ALL_T) $(ALL_O)
+	$(RM) $(ALL_T) $(ALL_O) luacore.h
 
 depend:
 	@$(CC) $(CFLAGS) -MM l*.c
@@ -216,5 +216,9 @@ lvm.o: lvm.c lprefix.h lua.h luaconf.h ldebug.h lstate.h lobject.h \
  ltable.h lvm.h ljumptab.h
 lzio.o: lzio.c lprefix.h lua.h luaconf.h llimits.h lmem.h lstate.h \
  lobject.h ltm.h lzio.h
+
+# The prerequisites must in the same order that we want in the output.
+luacore.h: llimits.h lctype.h lopcodes.h lmem.h lobject.h lzio.h ltable.h lfunc.h ltm.h lparser.h llex.h lundump.h lstate.h lcode.h ldebug.h lapi.h ldo.h lgc.h lvm.h lstring.h
+	awk -f gen-lua-core-h.awk $^ > $@
 
 # (end of Makefile)
