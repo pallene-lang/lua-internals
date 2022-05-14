@@ -397,6 +397,10 @@ static int l_strcmp (const TString *ls, const TString *rs) {
   }
 }
 
+int luaV_strcmp(const TString *ls, const TString *rs) {
+    return l_strcmp(ls, rs);
+}
+
 
 /*
 ** Check whether integer 'i' is less than float 'f'. If 'i' has an
