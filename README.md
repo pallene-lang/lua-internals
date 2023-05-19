@@ -1,6 +1,6 @@
 # PUC-Lua with exposed internals
 
-This repository contains a **patched PUC-Lua exposing low-level implementation details**.
+This is a **patched PUC-Lua exposing low-level implementation details**.
 This version of Lua is used by some experimental projects including
 [Pallene](https://www.github.com/pallene-lang/pallene) and
 [LuaAOT](https://github.com/hugomg/lua-aot-5.4).
