@@ -10,13 +10,29 @@ function is_core_include() {
         is_core[substr($0, RSTART+1, RLENGTH-2)]
 }
 
+function is_header(name) {
+    return name ~ /\.h$/
+}
+
 BEGIN {
     for (i = 1; i < ARGC; i++) {
-        is_core[ARGV[i]] = 1
+        if (is_header(ARGV[i])) {
+            is_core[ARGV[i]] = 1
+        }
     }
 
     print "#ifndef luacore_h"
     print "#define luacore_h"
+    # The following line solves a circular dependency between lstate and ltm
+    # It's lifted from lstate.h (please refer to the comment there)
+    print "typedef struct CallInfo CallInfo;"
+
+}
+
+BEGINFILE {
+    if (!is_header(FILENAME)) {
+        nextfile
+    }
 }
 
 !is_core_include() { print }
