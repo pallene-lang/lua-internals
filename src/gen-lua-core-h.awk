@@ -19,8 +19,8 @@ BEGIN {
     print "#define luacore_h"
 }
 
+!is_core_include() { print }
+
 END {
     print "#endif"
 }
-
-!is_core_include() { print }
