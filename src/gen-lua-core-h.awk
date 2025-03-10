@@ -23,7 +23,9 @@ BEGIN {
 
 }
 
-!is_core_include() { print }
+/^typedef struct CallInfo CallInfo;/ { next }  # Skip repeated typedefs
+is_core_include() { next }  # Skip includes for files being merged
+{ print }  # Print all other lines
 
 END {
     print "#endif"
